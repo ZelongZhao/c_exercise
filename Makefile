@@ -1,7 +1,5 @@
 CFLAGS=-Wall -g
 
-CC=gcc
-
 SRC=$(wildcard *.c)
 
 TARGETS=$(patsubst %.c,%,$(SRC))
