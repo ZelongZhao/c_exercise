@@ -57,7 +57,16 @@ int main(int argc, char *argv[])
 
     char num[4] = {'a','b','c','d'};
 
-    printf("%d",*(int*)num);
+    printf("%d\n",*(int*)num);
+
+
+    char* name_pointer = name;
+
+    printf("name each: %c %c %c %c\n",
+           name_pointer[0], name_pointer[1],
+           name_pointer[2], name_pointer[3]);
+
+    printf("name: %s\n", name_pointer);
 
     return 0;
 }
