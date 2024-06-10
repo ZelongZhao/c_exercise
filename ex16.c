@@ -10,8 +10,6 @@ struct Person {
     int weight;
 };
 
-typedef struct Person person;
-
 struct Person *Person_create(char *name, int age, int height, int weight)
 {
     struct Person *who = malloc(sizeof(struct Person));
@@ -70,9 +68,6 @@ int main(int argc, char *argv[])
     // destroy them both so we clean up
     Person_destroy(joe);
     Person_destroy(frank);
-
-    person allen;
-    allen.age = 10;
 
     return 0;
 }
