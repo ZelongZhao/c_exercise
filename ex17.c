@@ -7,13 +7,10 @@
 //#define MAX_DATA 512
 //#define MAX_ROWS 100
 
-int MAX_DATA = 512;
-int MAX_ROWS = 100;
-
 struct Address {
     int id;
     int set;
-    char* name,email;
+    char* name,* email;
 };
 
 struct Database {
@@ -26,7 +23,9 @@ struct Connection {
     FILE *file;
     struct Database *db;
 };
+
 void Database_close(struct Connection *conn);
+
 void die(struct Connection *conn, const char *message)
 {
     if(errno) {
@@ -99,13 +98,21 @@ void Database_write(struct Connection *conn)
 
 void Database_create(struct Connection *conn)
 {
-    int i = 0;
+//    int i = 0;
 
-    for(i = 0; i < MAX_ROWS; i++) {
-        // make a prototype to initialize it
-        struct Address addr = {.id = i, .set = 0};
-        // then just assign it
-        conn->db->rows[i] = addr;
+//    for(i = 0; i < MAX_ROWS; i++) {
+//        // make a prototype to initialize it
+//        struct Address addr = {.id = i, .set = 0};
+//        // then just assign it
+//        conn->db->rows[i] = addr;
+//    }
+    conn->db->rows = (struct Address**)malloc(conn->db->max_rows * sizeof (struct Address *));
+    for(int i = 0; i < conn->db->max_rows; i++){
+        conn->db->rows[i] = (struct Address*) malloc(sizeof(struct Address));
+        conn->db->rows[i]->id = i;
+        conn->db->rows[i]->set = 0;
+        conn->db->rows[i]->name = (char *)malloc(conn->db->max_data);
+        conn->db->rows[i]->email = (char *)malloc(conn->db->max_data);
     }
 }
 
