@@ -48,18 +48,17 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
-//TODO fix it
 void quick_sort_internal(int* num,int n, compare_cb cmp){
-    if(n < 1)
+    if(n <= 1)
         return;
     int pivot = num[n / 2];
     int left = 0;
     int right = n - 1;
-    while (left < right){
-        if(cmp(num[left] , pivot) < 0) left++;
-        if(cmp(num[right],pivot)>0)  right--;
+    while (left <= right){
+        while(left<=right && cmp(num[left], pivot) < 0) left++;
+        while(left<=right && cmp(num[right],pivot) > 0) right--;
 
-        if(num[left] < num [right]){
+        if(left<=right){
             int tmp = num[left];
             num[left] = num[right];
             num[right] = tmp;
@@ -69,13 +68,13 @@ void quick_sort_internal(int* num,int n, compare_cb cmp){
         }
     }
     quick_sort_internal(num,right,cmp);
-    quick_sort_internal(&num[left],n - left,cmp);
+    quick_sort_internal((num + right + 1),n - right -1,cmp);
 }
 
 int *quick_sort(int *numbers, int count, compare_cb cmp)
 {
-    int * ret = malloc(count * sizeof (int ));
-    ret = memcpy(ret,numbers,count);
+    int * ret = malloc(count * sizeof (int));
+    ret = memcpy(ret,numbers,count * sizeof (int));
 
     quick_sort_internal(ret,count,cmp);
 
