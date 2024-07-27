@@ -22,16 +22,16 @@ char *test_create()
 char *test_read_write() {
     char buffer[100];
 
-    RingBuffer_write(ring_buffer, "hello", 5);
+    RingBuffer_write(ring_buffer, "hello\n", 6);
 
-    RingBuffer_read(ring_buffer, buffer, 5);
-    mu_assert(memcmp(buffer,"hello",5),"ring_buffer read write failed");
+    RingBuffer_read(ring_buffer, buffer, 6);
+    mu_assert(memcmp(buffer,"hello",5) == 0,"ring_buffer read write failed");
     return NULL;
 }
 
 char *test_destroy() {
+    mu_assert(ring_buffer != NULL, "ring_buffer destroy failed");
     RingBuffer_destroy(ring_buffer);
-    mu_assert(ring_buffer == NULL, "ring_buffer destroy failed");
     return NULL;
 }
 
@@ -42,7 +42,7 @@ char *all_tests() {
     mu_run_test(test_create);
     // mu_run_test(test_send_recv);
     mu_run_test(test_read_write);
-    // mu_run_test(test_destroy);
+    mu_run_test(test_destroy);
 
     return NULL;
 }
