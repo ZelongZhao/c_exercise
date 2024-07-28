@@ -6,15 +6,15 @@
 //
 
 #include "minunit.h"
-#include "lcthw/ringbuffer.h"
+#include "lcthw/ringbufferposix.h"
 
-#define MAX_LENTH 1024
+#define MAX_ORDER 14
 
 RingBuffer *ring_buffer = NULL;
 
 char *test_create()
 {
-    ring_buffer = RingBuffer_create(MAX_LENTH);
+    ring_buffer = RingBuffer_create(MAX_ORDER);
     mu_assert(ring_buffer != NULL, "ring_buffer creation failed");
     return NULL;
 }

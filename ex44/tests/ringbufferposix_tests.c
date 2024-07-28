@@ -6,7 +6,7 @@
 //
 
 #include "minunit.h"
-#include "lcthw/ringbuffer.h"
+#include "lcthw/ringbufferposix.h"
 
 #define MAX_LENTH 1024
 
